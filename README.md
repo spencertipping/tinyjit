@@ -1,6 +1,10 @@
 Haskell JIT Example
 -------------------
 
++ **Changes from original repo**
+  + Modified `factorial` example to take an int argument per function call
+  + Broke all the other examples as a result
+
 [![Build Status](https://travis-ci.org/sdiehl/tinyjit.svg)](https://travis-ci.org/sdiehl/tinyjit)
 [![MIT License](http://img.shields.io/badge/license-mit-blue.svg)](https://github.com/sdiehl/tinyjit/blob/master/LICENSE)
 
