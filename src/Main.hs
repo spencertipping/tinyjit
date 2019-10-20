@@ -8,6 +8,8 @@ import Data.Monoid
 
 import Foreign.C.Types
 
+import System.IO.Unsafe
+
 import JIT
 import Assembler
 
@@ -49,9 +51,7 @@ dump :: [Word8] -> IO ()
 dump = mapM_ (Prelude.putStrLn . hex)
 
 doit :: (Int -> IO Int) -> Int -> IO ()
-doit f n = do
-  r <- f n
-  putStrLn $ "f " ++ show n ++ " = " ++ show r
+doit f n = putStrLn $ "f " ++ show n ++ " = " ++ show (unsafePerformIO $ f n)
 
 main :: IO ()
 main = do
