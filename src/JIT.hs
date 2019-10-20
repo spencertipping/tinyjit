@@ -95,14 +95,14 @@ newtype MmapFlags = MmapFlags { unMmapFlags :: CInt }
   deriving (Eq, Show, Ord, Num, Bits)
 
 foreign import ccall "dynamic"
-  mkFun :: FunPtr (IO Int) -> IO Int
+  mkFun :: FunPtr (Int -> IO Int) -> Int -> IO Int
 
-getFunction :: Ptr Word8 -> IO Int
+getFunction :: Ptr Word8 -> Int -> IO Int
 getFunction mem = do
-  let fptr = unsafeCoerce mem :: FunPtr (IO Int)
+  let fptr = unsafeCoerce mem :: FunPtr (Int -> IO Int)
   mkFun fptr
 
-jit :: Ptr Word8 -> [Word8] -> IO (IO Int)
+jit :: Ptr Word8 -> [Word8] -> IO (Int -> IO Int)
 jit mem machCode = do
   code <- codePtr machCode
   withForeignPtr (vecPtr code) $ \ptr -> do

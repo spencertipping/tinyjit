@@ -25,9 +25,9 @@ arith = do
   ret
 
 -- Example 2
-factorial :: Int64 -> X86 ()
-factorial n = do
-  mov rcx (I n)
+factorial :: X86 ()
+factorial = do
+  mov rcx rdi
   mov rax (I 1)
   l1 <- label
   mul rcx
@@ -48,6 +48,11 @@ printf fnptr msg = do
 dump :: [Word8] -> IO ()
 dump = mapM_ (Prelude.putStrLn . hex)
 
+doit :: (Int -> IO Int) -> Int -> IO ()
+doit f n = do
+  r <- f n
+  putStrLn $ "f " ++ show n ++ " = " ++ show r
+
 main :: IO ()
 main = do
   let jitsize = 256*1024
@@ -57,7 +62,7 @@ main = do
   mem <- allocateMemory jitsize
 
   {-let jitm = assemble mem arith-}
-  let jitm = assemble mem (factorial 5)
+  let jitm = assemble mem factorial
   {-let jitm = assemble mem (printf fn msg)-}
 
   case jitm of
@@ -67,5 +72,4 @@ main = do
       dump machCode
 
       fn <- jit mem machCode
-      res <- fn
-      putStrLn $ "Result: " <> show res
+      mapM_ (doit fn) [1..10]

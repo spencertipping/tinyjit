@@ -1,6 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.15.0.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
+--
+-- hash: 191e03253faa9c1331431be482f904a70e59e1ee2bfca5131153391cc9d099a8
 
 name:                tinyjit
 version:             0.1.0
@@ -14,7 +18,6 @@ author:              Stephen Diehl
 maintainer:          stephen.m.diehl@gmail.com
 copyright:           2016 Stephen Diehl
 build-type:          Simple
-cabal-version:       >= 1.10
 
 executable example
   main-is: Main.hs
@@ -24,10 +27,11 @@ executable example
   other-modules:
     Assembler
     JIT
+    Paths_tinyjit
   build-depends:
     base >=4.6 && <5.0,
-    unix >=2.6 && <2.8,
-    transformers >=0.4 && <0.6,
     binary >=0.7 && <0.9,
     bytestring >=0.10 && <0.11,
+    transformers >=0.4 && <0.6,
+    unix >=2.6 && <2.8,
     vector >=0.10 && <0.13
