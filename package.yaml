@@ -10,6 +10,7 @@ license: MIT
 homepage: https://github.com/sdiehl/tinyjit
 dependencies:
 - base >=4.6 && <5.0
+- criterion
 - unix >=2.6 && <2.8
 - transformers >=0.4 && <0.6
 - binary >=0.7 && <0.9

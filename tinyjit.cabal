@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 191e03253faa9c1331431be482f904a70e59e1ee2bfca5131153391cc9d099a8
+-- hash: 99ef0571f3fabfd68c680d4bc00b18c61ecd5a8384f4165af9b6425a91fe7d11
 
 name:                tinyjit
 version:             0.1.0
@@ -32,6 +32,7 @@ executable example
     base >=4.6 && <5.0,
     binary >=0.7 && <0.9,
     bytestring >=0.10 && <0.11,
+    criterion,
     transformers >=0.4 && <0.6,
     unix >=2.6 && <2.8,
     vector >=0.10 && <0.13

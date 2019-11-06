@@ -2,6 +2,9 @@ module Main (
   main
 ) where
 
+import Criterion
+import Criterion.Main
+
 import Data.Int
 import Data.Word
 import Data.Monoid
@@ -53,6 +56,12 @@ dump = mapM_ (Prelude.putStrLn . hex)
 doit :: (Int -> IO Int) -> Int -> IO ()
 doit f n = putStrLn $ "f " ++ show n ++ " = " ++ show (unsafePerformIO $ f n)
 
+
+haskell_factorial :: Int -> Int
+haskell_factorial 0 = 1
+haskell_factorial n = n * haskell_factorial (n - 1)
+
+
 main :: IO ()
 main = do
   let jitsize = 256*1024
@@ -73,3 +82,17 @@ main = do
 
       fn <- jit mem machCode
       mapM_ (doit fn) [1..10]
+
+      defaultMain [
+        bench "hfact 200"   (nf haskell_factorial 200),
+        bench "jitfact 200" (nf (unsafePerformIO . fn) 200),
+
+        bench "hfact 20"   (nf haskell_factorial 20),
+        bench "jitfact 20" (nf (unsafePerformIO . fn) 20),
+
+        bench "hfact 3"    (nf haskell_factorial 3),
+        bench "jitfact 3"  (nf (unsafePerformIO . fn) 3),
+
+        bench "hfact 1"    (nf haskell_factorial 1),
+        bench "jitfact 1"  (nf (unsafePerformIO . fn) 1)
+                  ]
